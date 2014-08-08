@@ -1,0 +1,71 @@
+#
+# Configuration file for racoon-tool
+#
+
+global:
+	log: notify
+
+# default settings to save typing
+peer(%default):
+	certificate_type: x509 blurke-ipsec.crt blurke-ipsec.key
+	my_identifier: fqdn blurke.bar.com
+	lifetime: time 60 min
+	verify_identifier: on
+	verify_cert: on
+	hash_algorithm[0]: sha1
+	encryption_algorithm[0]: 3des
+	authentication_method[0]: rsasig
+
+connection(%default):
+	authentication_algorithm: hmac_sha1
+	encryption_algorithm: 3des
+	src_ip: 172.31.1.1
+	lifetime: time 20 min
+
+# Connection to work
+peer(10.0.0.1):
+	peers_identifier: fqdn blue.sky.com
+
+connection(blurke-blue-sky-work):
+	src_range: 192.168.203.1/32
+	dst_range: 172.16.0.0/24
+	dst_ip: 10.0.0.1
+	admin_status: enabled
+
+# Connection to telehoused servers
+connection(blurke-mail):
+	src_range: 192.168.203.0/24
+	dst_range: 172.20.1.1
+	dst_ip: 10.100.0.1
+	encryption_algorithm: blowfish
+	compression: on
+	admin_status: yes
+
+peer(10.100.0.1):
+	peers_identifier: fqdn mail.bar.com
+
+connection(blurke-web1):
+	src_range: 192.168.203.0/24
+	dst_range: 172.20.1.23
+	dst_ip: 10.100.0.1
+	encryption_algorithm: blowfish
+	admin_status: yes
+
+connection(blurke-web2):
+	src_range: 192.168.203.0/24
+	dst_range: 172.20.1.24
+	dst_ip: 10.100.0.1
+	encryption_algorithm: blowfish
+	admin_status: yes
+
+
+
+# Test connection to Free S/WAN
+connection(blurke-freeswan):
+	src_range: 192.168.203.0/24
+	dst_range: 172.17.100.0/24
+	dst_ip: 172.30.1.1
+	admin_status: yes
+
+peer(172.30.1.1):
+	peers_identifier: fqdn banshee
