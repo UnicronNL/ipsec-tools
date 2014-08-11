@@ -23,7 +23,7 @@ DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 
-CFLAGS = -Wall -g -fno-strict-aliasing -isystem /usr/include
+CFLAGS = -Wall -g -fno-strict-aliasing -isystem /usr/include -D_FORTIFY_SOURCE=0
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
