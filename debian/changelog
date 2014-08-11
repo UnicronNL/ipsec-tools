@@ -1,3 +1,9 @@
+ipsec-tools (1:0.8.2+20140711-1) unstable; urgency=low
+
+  * Version update
+
+ -- Kim Hagen <khagen@multi-development.com>  Mon, 11 Aug 2014 11:58:53 +0200
+
 ipsec-tools (1:0.7.3-12) unstable; urgency=low
 
   * Extend racoon init-script to start after setkey (Closes: #599529)
